@@ -36,12 +36,12 @@ public class AdminFacade extends ClientFacade {
     public boolean login(final String email, final String password) throws ApplicationException {
 
         //Checking if email address is valid according to Email REGEX
-        if(!InputUserValidation.isEmailValid(email)){
+        if (!InputUserValidation.isEmailValid(email)) {
             throw new UserValidationException();
         }
 
         //Checking if hashed password address is valid according to password REGEX
-        if(!InputUserValidation.isPasswordValid(password)){
+        if (!InputUserValidation.isPasswordValid(password)) {
             throw new UserValidationException();
         }
 
@@ -54,22 +54,22 @@ public class AdminFacade extends ClientFacade {
     public Long createCompany(final Company company) throws ApplicationException {
 
         //Checking if hashed password address is valid according to password REGEX
-        if(!InputUserValidation.isPasswordValid(String.valueOf(company.getPassword()))){
+        if (!InputUserValidation.isPasswordValid(String.valueOf(company.getPassword()))) {
             throw new UserValidationException();
         }
 
         //Checking if email address is valid according to Email REGEX
-        if(!InputUserValidation.isEmailValid(company.getEmail())){
+        if (!InputUserValidation.isEmailValid(company.getEmail())) {
             throw new UserValidationException();
         }
 
         //Checking if company is already exists according to email
-        if(companyDao.isExistsByEmail(company.getEmail())){
+        if (companyDao.isExistsByEmail(company.getEmail())) {
             throw new EntityExistException(EntityType.COMPANY);
         }
 
         //Checking if company is already exists according to name
-        if(companyDao.isExistsByName(company.getName())){
+        if (companyDao.isExistsByName(company.getName())) {
             throw new EntityExistException(EntityType.COMPANY);
         }
         //Creating the company
@@ -84,12 +84,12 @@ public class AdminFacade extends ClientFacade {
     public void updateCompany(final Company company) throws ApplicationException {
 
         //Checking if company is not exists
-        if(!companyDao.isExistsById(company.getId())) {
+        if (!companyDao.isExistsById(company.getId())) {
             throw new EntityNotExistException(EntityType.COMPANY);
         }
 
         //Checking if company name is already exist
-        if(!company.getName().equals(companyDao.read(company.getId()).getName())){
+        if (!company.getName().equals(companyDao.read(company.getId()).getName())) {
             throw new CompanyNameException();
         }
 
@@ -117,7 +117,7 @@ public class AdminFacade extends ClientFacade {
         }
 
         //Deleting the specific company
-        System.out.println("The selected company: " + companyDao.read(companyId).getName() +  " has been deleted!");
+        System.out.println("The selected company: " + companyDao.read(companyId).getName() + " has been deleted!");
         companyDao.delete(companyId);
 
     }
@@ -130,7 +130,7 @@ public class AdminFacade extends ClientFacade {
         Set<Company> companies = new HashSet<>(companyDao.readAll());
 
         //Checking if companies are not exist
-        if(companies == null){
+        if (companies == null) {
             throw new EntityNotExistException(EntityType.COMPANY);
         }
 
@@ -150,15 +150,15 @@ public class AdminFacade extends ClientFacade {
         Company company = companyDao.read(companyId);
 
         //Checking if the company is not exist
-        if(company == null){
+        if (company == null) {
             throw new EntityNotExistException(EntityType.COMPANY);
         }
         //Getting the specific company
-        return new Company(company.getId(),company.getName(),company.getEmail()
-                ,company.getPassword(),couponDAO.readCouponsByCompanyId(companyId));
+        return new Company(company.getId(), company.getName(), company.getEmail()
+                , company.getPassword(), couponDAO.readCouponsByCompanyId(companyId));
     }
 
-   //------------------------------------------Creating a customer--------------------------------------------------
+    //------------------------------------------Creating a customer--------------------------------------------------
 
     public Long createCustomer(final Customer customer) throws ApplicationException {
 
@@ -173,7 +173,7 @@ public class AdminFacade extends ClientFacade {
         }
 
         //Checking if customer is already exist
-        if(customerDAO.isExistsByEmail(customer.getEmail())){
+        if (customerDAO.isExistsByEmail(customer.getEmail())) {
             throw new EntityExistException(EntityType.CUSTOMER);
         }
 
@@ -190,7 +190,7 @@ public class AdminFacade extends ClientFacade {
     public void updateCustomer(final Customer customer) throws ApplicationException {
 
         //Checking if customer is not exist
-        if(!customerDAO.isExistsById(customer.getId())) {
+        if (!customerDAO.isExistsById(customer.getId())) {
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
         //Updating the specific customer
@@ -226,7 +226,7 @@ public class AdminFacade extends ClientFacade {
         Set<Customer> customers = new HashSet<>(customerDAO.readAll());
 
         //Checking if customers are not exist
-        if(customers == null){
+        if (customers == null) {
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
 
@@ -246,7 +246,7 @@ public class AdminFacade extends ClientFacade {
         Customer customer = customerDAO.read(customerId);
 
         //Checking if the customer is not exists
-        if(customer == null){
+        if (customer == null) {
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
 

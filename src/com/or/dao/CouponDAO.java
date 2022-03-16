@@ -17,7 +17,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
 
     //Calling to the connection pool and getting an instance with creation of this class
     //Creating a private constructor
-    private CouponDAO(){
+    private CouponDAO() {
         try {
             connectionPool = ConnectionPool.getInstance();
         } catch (SQLException e) {
@@ -43,8 +43,8 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.setString(2, String.valueOf(coupon.getCategory()));
             preparedStatement.setString(3, coupon.getTitle());
             preparedStatement.setString(4, coupon.getDescription());
-            preparedStatement.setDate(5,  coupon.getStartDate());
-            preparedStatement.setDate(6,  coupon.getEndDate());
+            preparedStatement.setDate(5, coupon.getStartDate());
+            preparedStatement.setDate(6, coupon.getEndDate());
             preparedStatement.setInt(7, coupon.getAmount());
             preparedStatement.setDouble(8, coupon.getPrice());
             preparedStatement.setString(9, coupon.getImage());
@@ -92,7 +92,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return ObjectExtractionUtil.resultToCoupon(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -107,8 +107,8 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
         try {
             //Creating a SQL query
             String sqlStatement = "UPDATE coupons SET company_id = ?, category = ?,  " +
-                                  "title = ?, description = ?, start_date = ?, end_date = ?," +
-                                  " amount = ?, price = ?, image = ? WHERE id = ?";
+                    "title = ?, description = ?, start_date = ?, end_date = ?," +
+                    " amount = ?, price = ?, image = ? WHERE id = ?";
             //Establishing a connection from the connection pool - Asking for one of the connections(pop)
             connection = connectionPool.getConnection();
             //Setting our connection with our sql query and merging them together
@@ -118,8 +118,8 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.setString(2, String.valueOf(coupon.getCategory()));
             preparedStatement.setString(3, coupon.getTitle());
             preparedStatement.setString(4, coupon.getDescription());
-            preparedStatement.setDate(5,  coupon.getStartDate());
-            preparedStatement.setDate(6,  coupon.getEndDate());
+            preparedStatement.setDate(5, coupon.getStartDate());
+            preparedStatement.setDate(6, coupon.getEndDate());
             preparedStatement.setInt(7, coupon.getAmount());
             preparedStatement.setDouble(8, coupon.getPrice());
             preparedStatement.setString(9, coupon.getImage());
@@ -128,7 +128,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.UPDATE);
+            throw new CrudException(EntityType.COUPON, CrudOperation.UPDATE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -153,7 +153,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.DELETE);
+            throw new CrudException(EntityType.COUPON, CrudOperation.DELETE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -183,7 +183,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return coupons;
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READALL);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READALL);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -208,7 +208,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.CREATE);
+            throw new CrudException(EntityType.COUPON, CrudOperation.CREATE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -233,7 +233,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.DELETE);
+            throw new CrudException(EntityType.COUPON, CrudOperation.DELETE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -257,7 +257,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.DELETE);
+            throw new CrudException(EntityType.COUPON, CrudOperation.DELETE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -287,7 +287,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return ObjectExtractionUtil.resultToCustomerId(result).getId();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -319,7 +319,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return ObjectExtractionUtil.resultToCoupon(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -352,7 +352,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return couponsByCustomerId;
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -414,7 +414,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return coupons;
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -444,7 +444,7 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
             return ObjectExtractionUtil.resultToCoupon(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COUPON,CrudOperation.READ);
+            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);

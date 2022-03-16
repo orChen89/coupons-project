@@ -1,7 +1,6 @@
 package com.or.util;
 
 import com.or.model.Coupon;
-
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -19,13 +18,13 @@ public class CouponUtil {
     }
 
     //This method is checking if a coupon end date is expired
-    public static boolean isCouponExpired(final Date date){
+    public static boolean isCouponExpired(final Date date) {
         LocalDate today = LocalDate.now();
         return date.before(Date.valueOf(today));
     }
 
     //This method is checking if a coupon date is past today
-    public static boolean isCouponDateValid(final Date date){
+    public static boolean isCouponDateValid(final Date date) {
         LocalDate today = LocalDate.now();
         return date.after(Date.valueOf(today));
     }

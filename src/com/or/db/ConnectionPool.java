@@ -35,7 +35,7 @@ public class ConnectionPool {
     //Inserting all connections to the stack of connections
     private void openAllConnections() throws SQLException {
         for (int counter = 0; counter < Constants.NUMBER_OF_CONNECTIONS; counter++) {
-            final Connection connection = DriverManager.getConnection (
+            final Connection connection = DriverManager.getConnection(
                     Constants.SQL_URL,
                     Constants.SQL_USER,
                     Constants.SQL_PASS);
@@ -45,7 +45,7 @@ public class ConnectionPool {
 
     public void closeAllConnections() throws InterruptedException {
         synchronized (connections) {
-            while (connections.size() < Constants.NUMBER_OF_CONNECTIONS){
+            while (connections.size() < Constants.NUMBER_OF_CONNECTIONS) {
                 connections.wait();
             }
             connections.removeAllElements();
@@ -66,14 +66,14 @@ public class ConnectionPool {
     public void returnConnection(final Connection connection) {
         synchronized (connections) {
             if (connection == null) {
-             return;
+                return;
             }
             connections.push(connection);
             connections.notify();
         }
     }
 
-    public void connectionPreviewPrint(){
+    public void connectionPreviewPrint() {
 
         System.out.println();
         System.out.println("****************************************");

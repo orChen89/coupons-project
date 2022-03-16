@@ -66,7 +66,8 @@ public class Tester {
                     //Killing our thread and closing the program
                     dailyJobThread.stop();
                     stop = false;
-                    System.out.println("GoodBye!");
+                    System.out.println(Constants.ANSI_YELLOW_BACKGROUND + Constants.ANSI_BLACK + "GOODBYE!" +
+                                       Constants.ANSI_DEFAULT_RESET);
                     break;
             }
         }
@@ -99,10 +100,10 @@ public class Tester {
         companiesList.forEach(company -> {
             try {
                 adminFacade.createCompany(company);
-                } catch (ApplicationException e) {
+            } catch (ApplicationException e) {
                 System.err.println(e);
-                }
-            });
+            }
+        });
         System.out.println();
 
         //------------------------Creating default customers in our database-------------------------------------
@@ -360,11 +361,11 @@ public class Tester {
         }
     }
 
-    private void adminOperationsMenu(){
+    private void adminOperationsMenu() {
 
         System.out.println("These are the Admin operations: ");
         System.out.println(
-                        "Adding a new company " + "\n" +
+                "Adding a new company " + "\n" +
                         "Updating an existing company " + "\n" +
                         "Deleting an existing company " + "\n" +
                         "Getting all existing companies " + "\n" +
@@ -377,11 +378,11 @@ public class Tester {
         System.out.println();
     }
 
-    private void companyOperationsMenu(){
+    private void companyOperationsMenu() {
 
         System.out.println("These are the Company operations: ");
         System.out.println(
-                        "Adding a new coupon " + "\n" +
+                "Adding a new coupon " + "\n" +
                         "Updating an existing coupon " + "\n" +
                         "Deleting an existing coupon " + "\n" +
                         "Getting all existing coupons of company " + "\n" +
@@ -391,11 +392,11 @@ public class Tester {
         System.out.println();
     }
 
-    private void customerOperationsMenu(){
+    private void customerOperationsMenu() {
 
         System.out.println("These are the Customer operations: ");
         System.out.println(
-                        "Add a new company " + "\n" +
+                "Add a new company " + "\n" +
                         "Updating an existing company " + "\n" +
                         "Deleting an existing company " + "\n" +
                         "Getting all existing companies " + "\n" +
@@ -410,13 +411,13 @@ public class Tester {
 
     private void startMenu() {
 
-        System.out.println("Please choose the desired activity you wish to perform: ");
+        System.out.println(Constants.ANSI_GREEN + "Please choose the desired activity you wish to perform: ");
         System.out.println(
-                        "1 - Drop and create tables in Database" + "\n" +
+                "1 - Drop and create tables in Database" + "\n" +
                         "2 - Create by default all Entities & purchases (10 from each)" + "\n" +
                         "3 - Perform login and system Tests" + "\n" +
                         "4 - Enter to further Tests" + "\n" +
-                        "5 - Exit");
+                        "5 - Exit" + Constants.ANSI_DEFAULT_RESET);
     }
 
     private void openingPrompt() {
@@ -433,25 +434,22 @@ public class Tester {
 
         if (hour < Constants.NOON) {
             dayPeriod = "Morning";
-        }
-         else if (hour >= Constants.NOON && hour < Constants.EVENING) {
+        } else if (hour >= Constants.NOON && hour < Constants.EVENING) {
             dayPeriod = "Afternoon";
-        }
-        else if (hour >= Constants.EVENING && hour < Constants.NIGHT) {
+        } else if (hour >= Constants.EVENING && hour < Constants.NIGHT) {
             dayPeriod = "Evening";
-        }
-         else if (hour >= Constants.NIGHT) {
+        } else if (hour >= Constants.NIGHT) {
             dayPeriod = "Night";
         }
 
         System.out.println();
-        System.out.println("--------------------(|" + dayOfWeek + "| - " + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")) +
-                ")------------------------");
-        System.out.println("Good " + dayPeriod + "!");
+        System.out.println(Constants.ANSI_CYAN + "--------------------(|" + dayOfWeek + "| - "
+                + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")------------------------"
+                + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
-        System.out.println("Welcome to the 1st phase of Coupon project!");
+        System.out.println(Constants.ANSI_ORANGE + "Good " + dayPeriod + "!" + " Welcome to the 1st phase of Coupons project!" +
+                Constants.ANSI_DEFAULT_RESET);
         System.out.println();
-
     }
 
     private void adminTest() throws ApplicationException {
@@ -512,7 +510,7 @@ public class Tester {
         System.out.println(clientFacade.getCustomer(3L));
 
         System.out.println();
-        System.out.println("Admin test passed successfully!");
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Admin test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
 
     }
@@ -562,7 +560,7 @@ public class Tester {
         System.out.println(clientFacade.getCompany(8L));
 
         System.out.println();
-        System.out.println("Company test passed successfully!");
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Company test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
 
     }
@@ -592,7 +590,7 @@ public class Tester {
         System.out.println(clientFacade.getCustomer(5L));
 
         System.out.println();
-        System.out.println("Customer test passed successfully!");
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Customer test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
 
     }
 
@@ -625,7 +623,7 @@ public class Tester {
         System.out.println("Testing updating an existing company's name -->");
         try {
             //If test valid - we will receive an exception - Company already exist
-            adminFacade.updateCompany(new Company(3L,"Wallak", "com3@gmail.com", "Com3"));
+            adminFacade.updateCompany(new Company(3L, "Wallak", "com3@gmail.com", "Com3"));
 
         } catch (ApplicationException e) {
             System.out.println(e);
@@ -679,8 +677,7 @@ public class Tester {
             //If test valid - we will receive an exception - Date is invalid
             companyFacade.createCoupon(new Coupon(10L, Categories.FOOD, "Toast-Naknik",
                     "Taim", Date.valueOf("2022-02-28"), Date.valueOf("2022-01-30"),
-                   2, 32.5, "jdbc:mysql://localhost:3306/coupons_project"));
-
+                    2, 32.5, "jdbc:mysql://localhost:3306/coupons_project"));
         } catch (ApplicationException e) {
             System.out.println(e);
         }

@@ -8,14 +8,13 @@ import com.or.facade.ClientFacade;
 import com.or.facade.CompanyFacade;
 import com.or.facade.CustomerFacade;
 import lombok.Data;
-
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 public class LoginManager {
 
-public static final LoginManager instance = new LoginManager();
+    public static final LoginManager instance = new LoginManager();
 
     private final Set<String> authenticatedUsers = new HashSet<>();
     private final AdminFacade adminFacade;
@@ -24,10 +23,10 @@ public static final LoginManager instance = new LoginManager();
 
     //Creating a private constructor
     private LoginManager() {
-    //Injecting the entities instances
-    this.adminFacade = AdminFacade.instance;
-    this.companyFacade = CompanyFacade.instance;
-    this.customerFacade = CustomerFacade.instance;
+        //Injecting the entities instances
+        this.adminFacade = AdminFacade.instance;
+        this.companyFacade = CompanyFacade.instance;
+        this.customerFacade = CustomerFacade.instance;
     }
 
     //------------------------------------------Entity Login-------------------------------------------------------
@@ -40,28 +39,28 @@ public static final LoginManager instance = new LoginManager();
         //Verifying which facade to return according to the specific credentials
         switch (clientType) {
 
-            case ADMINISTRATOR :
+            case ADMINISTRATOR:
 
                 facadeType = this.adminFacade;
                 break;
 
-            case COMPANY :
+            case COMPANY:
 
                 facadeType = this.companyFacade;
                 break;
 
-            case CUSTOMER :
+            case CUSTOMER:
 
-               facadeType = this.customerFacade;
-               break;
+                facadeType = this.customerFacade;
+                break;
 
-            default :
+            default:
 
                 throw new LoginMatchingEntityException(email, clientType);
-            }
+        }
 
-            //Setting the specific facade to our boolean variable
-            isAuthenticated = facadeType.login(email, password);
+        //Setting the specific facade to our boolean variable
+        isAuthenticated = facadeType.login(email, password);
 
         if (isAuthenticated) {
             //Adding the email address to the set list
@@ -69,8 +68,8 @@ public static final LoginManager instance = new LoginManager();
             return facadeType;
         }
         throw new LoginMatchingEntityException(email, clientType);
-        }
     }
+}
 
 
 

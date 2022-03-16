@@ -4,7 +4,6 @@ import com.or.enums.Categories;
 import com.or.model.Company;
 import com.or.model.Coupon;
 import com.or.model.Customer;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

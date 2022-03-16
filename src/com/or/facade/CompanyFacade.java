@@ -5,7 +5,6 @@ import com.or.dao.CouponDAO;
 import com.or.enums.Categories;
 import com.or.enums.EntityType;
 import com.or.errors.*;
-import com.or.loggin.LoginManager;
 import com.or.model.Company;
 import com.or.model.Coupon;
 import com.or.util.CouponUtil;
@@ -65,7 +64,7 @@ public class CompanyFacade extends ClientFacade {
 
         //Checking if the specific coupon is already exist
         for (Coupon c : couponDAO.readAll()) {
-            if(c.getTitle().equals(coupon.getTitle()) && Objects.equals(c.getCompanyID(), coupon.getCompanyID())) {
+            if (c.getTitle().equals(coupon.getTitle()) && Objects.equals(c.getCompanyID(), coupon.getCompanyID())) {
                 throw new EntityExistException(EntityType.COUPON);
             }
         }
@@ -135,7 +134,7 @@ public class CompanyFacade extends ClientFacade {
         }
 
         //Checking if there is a purchase including the current coupon
-        if(couponDAO.readCouponPurchaseByCouponId(couponId) == null) {
+        if (couponDAO.readCouponPurchaseByCouponId(couponId) == null) {
             //Deleting the coupon on our database
             System.out.println("The selected coupon: " + couponDAO.read(couponId).getTitle() + " has been deleted!");
             couponDAO.delete(couponId);
@@ -154,13 +153,13 @@ public class CompanyFacade extends ClientFacade {
 
     public Coupon getCoupon(final Long couponId) throws ApplicationException {
 
-    Coupon coupon = couponDAO.read(couponId);
-            //Checking if the coupon is not exists
-            if (coupon == null) {
-               throw new EntityNotExistException(EntityType.COUPON);
-    }
-            //Getting specific coupon
-            return coupon;
+        Coupon coupon = couponDAO.read(couponId);
+        //Checking if the coupon is not exists
+        if (coupon == null) {
+            throw new EntityNotExistException(EntityType.COUPON);
+        }
+        //Getting specific coupon
+        return coupon;
     }
 
     //-------------------------------------Getting all coupons------------------------------------------------------
@@ -168,14 +167,14 @@ public class CompanyFacade extends ClientFacade {
     public List<Coupon> getAllCoupons(final Long companyId) throws ApplicationException {
 
         List<Coupon> companyCoupons = new ArrayList<>();
-            //Setting the specific company's coupons
-            List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
+        //Setting the specific company's coupons
+        List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
         //Checking if the coupons are not exists
         if (coupons == null) {
             throw new EntityNotExistException(EntityType.COUPON);
         }
-            //Adding the coupons to a list
-            companyCoupons.addAll(coupons);
+        //Adding the coupons to a list
+        companyCoupons.addAll(coupons);
 
         return companyCoupons;
     }
@@ -210,31 +209,31 @@ public class CompanyFacade extends ClientFacade {
 
         List<Coupon> couponsByMax = new ArrayList<>();
 
-         List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
-            //Checking if the coupons are not exists
-            if(coupons == null) {
-                throw new EntityNotExistException(EntityType.COUPON);
+        List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
+        //Checking if the coupons are not exists
+        if (coupons == null) {
+            throw new EntityNotExistException(EntityType.COUPON);
+        }
+        for (Coupon coupon : coupons) {
+            if (coupon.getPrice() <= maxPrice) {
+                //Adding the specific coupons according the selected price limit
+                couponsByMax.add(coupon);
             }
-            for (Coupon coupon : coupons) {
-                if(coupon.getPrice() <= maxPrice) {
-                    //Adding the specific coupons according the selected price limit
-                    couponsByMax.add(coupon);
-                }
-            }
-            return couponsByMax;
+        }
+        return couponsByMax;
     }
 
     //-------------------------------------Get a specific company-------------------------------------------------
 
     public Company getCompany(final Long companyId) throws ApplicationException {
 
-            Company company = companyDao.read(companyId);
-            //Checking if the company is not exists
-            if (company == null) {
-                throw new EntityNotExistException(EntityType.COMPANY);
-            }
-            //Getting specific company
-            return new Company(company.getId(), company.getName(), company.getEmail(),
-                               company.getPassword(), couponDAO.readCouponsByCompanyId(companyId));
+        Company company = companyDao.read(companyId);
+        //Checking if the company is not exists
+        if (company == null) {
+            throw new EntityNotExistException(EntityType.COMPANY);
         }
+        //Getting specific company
+        return new Company(company.getId(), company.getName(), company.getEmail(),
+                company.getPassword(), couponDAO.readCouponsByCompanyId(companyId));
+    }
 }

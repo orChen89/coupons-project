@@ -102,34 +102,34 @@ public class DataBaseInitializer {
 
     public static void setupCategoriesInTable() {
 
-            //Creating the SQL queries
-            String query = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('COMPUTERS')";
-            String query1 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FOOD')";
-            String query2 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('ELECTRICITY');";
-            String query3 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('VACATION');";
-            String query4 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FASHION');";
-            String query5 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FURNITURE');";
+        //Creating the SQL queries
+        String query = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('COMPUTERS')";
+        String query1 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FOOD')";
+        String query2 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('ELECTRICITY');";
+        String query3 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('VACATION');";
+        String query4 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FASHION');";
+        String query5 = "INSERT INTO `coupons_project`.`categories` (`category`) VALUE ('FURNITURE');";
 
-            //Adding the queries to a list
-            List<String> queries = new ArrayList<>();
-            queries.add(query);
-            queries.add(query1);
-            queries.add(query2);
-            queries.add(query3);
-            queries.add(query4);
-            queries.add(query5);
+        //Adding the queries to a list
+        List<String> queries = new ArrayList<>();
+        queries.add(query);
+        queries.add(query1);
+        queries.add(query2);
+        queries.add(query3);
+        queries.add(query4);
+        queries.add(query5);
 
-            //Executing our query on sql - for each category
-            queries.forEach(q -> {
-                try {
-                    ConnectionPool.getInstance().getConnection().prepareStatement(q).execute();
-                } catch (InterruptedException | SQLException e) {
-                    System.err.println(e);
-                    throw new DBError(DBType.CREATE_TABLES);
-                }
-            });
-           System.out.println("*** The Categories table in * coupons_project * has been created successfully! ***");
-           System.out.println();
+        //Executing our query on sql - for each category
+        queries.forEach(q -> {
+            try {
+                ConnectionPool.getInstance().getConnection().prepareStatement(q).execute();
+            } catch (InterruptedException | SQLException e) {
+                System.err.println(e);
+                throw new DBError(DBType.CREATE_TABLES);
+            }
+        });
+        System.out.println("*** The Categories table in * coupons_project * has been created successfully! ***");
+        System.out.println();
     }
 
     //-----------------------------------Deleting our tables on SQL----------------------------------------------
@@ -138,7 +138,7 @@ public class DataBaseInitializer {
         try {
             //Creating a SQL query
             String query = "DROP TABLE `coupons_project`.`coupons`, `coupons_project`.`customer_vs_coupon`," +
-                           " `coupons_project`.`customers`, `coupons_project`.`categories`, `coupons_project`.`companies` ";
+                    " `coupons_project`.`customers`, `coupons_project`.`categories`, `coupons_project`.`companies` ";
             ////Executing our query on SQL
             ConnectionPool.getInstance().getConnection().prepareStatement(query).execute();
             System.out.println();

@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO extends UserDAO <Long, Customer> {
+public class CustomerDAO extends UserDAO<Long, Customer> {
 
     public static final CustomerDAO instance = new CustomerDAO();
     private ConnectionPool connectionPool = null;
@@ -113,7 +113,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.CUSTOMER,CrudOperation.UPDATE);
+            throw new CrudException(EntityType.CUSTOMER, CrudOperation.UPDATE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -138,7 +138,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.CUSTOMER,CrudOperation.DELETE);
+            throw new CrudException(EntityType.CUSTOMER, CrudOperation.DELETE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -169,7 +169,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             return customers;
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.CUSTOMER,CrudOperation.READALL);
+            throw new CrudException(EntityType.CUSTOMER, CrudOperation.READALL);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -201,7 +201,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             return ObjectExtractionUtil.resultToCustomer(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.CUSTOMER,CrudOperation.READ);
+            throw new CrudException(EntityType.CUSTOMER, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -233,7 +233,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             return ObjectExtractionUtil.resultToCustomer(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -265,7 +265,7 @@ public class CustomerDAO extends UserDAO <Long, Customer> {
             return ObjectExtractionUtil.resultToCustomer(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);

@@ -12,7 +12,7 @@ public class InputUserValidation {
 
     // --------------------------------Password validation--------------------------------------------------
 
-    public static boolean isPasswordValid (String password) {
+    public static boolean isPasswordValid(String password) {
 
         //Checking if the password is matching to the REGEX format
         return password.matches(PASSWORD_REGEX);
@@ -20,7 +20,7 @@ public class InputUserValidation {
 
     // --------------------------------Email validation-----------------------------------------------------
 
-    public static boolean isEmailValid (String email) {
+    public static boolean isEmailValid(String email) {
 
         //Translating the specific pattern to the REGEX format
         Pattern emailPattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
@@ -33,9 +33,9 @@ public class InputUserValidation {
 
     // --------------------------------Date validation-------------------------------------------------------
 
-    public static boolean isDateValid (Date date) {
+    public static boolean isDateValid(Date date) {
 
-       //Checking if the inserted date is matching to the REGEX format
-       return date.toString().matches(DATE_REGEX);
+        //Checking if the inserted date is matching to the REGEX format
+        return date.toString().matches(DATE_REGEX);
     }
 }

@@ -17,14 +17,15 @@ public class CompanyDAO extends UserDAO<Long, Company> {
 
     //Calling to the connection pool and getting an instance with creation of this class
     //Creating a private constructor
-    private CompanyDAO(){
+    private CompanyDAO() {
         try {
             connectionPool = ConnectionPool.getInstance();
         } catch (SQLException e) {
             System.err.println(e);
         }
     }
-//-------------------------------------Creating a new company--------------------------------------------------
+
+    //-------------------------------------Creating a new company--------------------------------------------------
     @Override
     public Long create(final Company company) throws CrudException {
         Connection connection = null;
@@ -52,7 +53,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             return generatedKeysResult.getLong(1);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.CREATE);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.CREATE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -84,7 +85,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             return ObjectExtractionUtil.resultToCompany(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -112,7 +113,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.UPDATE);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.UPDATE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -137,7 +138,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             preparedStatement.executeUpdate();
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.DELETE);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.DELETE);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -163,11 +164,11 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             //Checking if our variable is not empty/null and adding the returning company object to a list
             while (result.next()) {
                 companies.add(ObjectExtractionUtil.resultToCompany(result));
-           }
+            }
             return companies;
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READALL);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READALL);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -199,7 +200,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             return ObjectExtractionUtil.resultToCompany(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -229,7 +230,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             return ObjectExtractionUtil.resultToCompany(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);
@@ -259,7 +260,7 @@ public class CompanyDAO extends UserDAO<Long, Company> {
             return ObjectExtractionUtil.resultToCompany(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
-            throw new CrudException(EntityType.COMPANY,CrudOperation.READ);
+            throw new CrudException(EntityType.COMPANY, CrudOperation.READ);
         } finally {
             //Returning the chosen connection to the connections stack
             connectionPool.returnConnection(connection);

@@ -134,7 +134,7 @@ public class CustomerFacade extends ClientFacade {
         List<Coupon> coupons = new ArrayList<>();
 
         //Checking if coupons are not exist
-        if(coupons == null) {
+        if (coupons == null) {
             throw new EntityNotExistException(EntityType.COUPON);
         }
 
@@ -155,18 +155,18 @@ public class CustomerFacade extends ClientFacade {
         //Setting the customer's coupons of specific customer
         List<Coupon> coupons = getAllCoupons(customerId);
         //Checking if the coupons are not exists
-        if(coupons == null) {
+        if (coupons == null) {
             throw new EntityNotExistException(EntityType.COUPON);
         }
         for (Coupon coupon : coupons) {
             //Checking for each coupon if it is from same category
-            if(coupon.getCategory().equals(category)){
+            if (coupon.getCategory().equals(category)) {
                 //Adding the specific coupon to a list
                 couponsOfCustomerCategories.add(coupon);
                 break;
             }
-                System.out.println("This customer doesn't holds coupons from this category!");
-                break;
+            System.out.println("This customer doesn't holds coupons from this category!");
+            break;
         }
         return couponsOfCustomerCategories;
     }
@@ -180,11 +180,11 @@ public class CustomerFacade extends ClientFacade {
         //Setting the customer's coupons of specific customer
         List<Coupon> coupons = getAllCoupons(customerId);
         //Checking if the coupons are not exists
-        if(coupons == null){
+        if (coupons == null) {
             throw new EntityNotExistException(EntityType.COUPON);
         }
         for (Coupon coupon : coupons) {
-            if(coupon.getPrice() <= maxPrice) {
+            if (coupon.getPrice() <= maxPrice) {
                 //Adding the specific coupons according the selected price limit
                 couponsByMax.add(coupon);
             } else {
@@ -202,7 +202,7 @@ public class CustomerFacade extends ClientFacade {
         Customer customer = customerDAO.read(customerId);
 
         //Checking if the customer is not exists
-        if(customer == null) {
+        if (customer == null) {
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
 
