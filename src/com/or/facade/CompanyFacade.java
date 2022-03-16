@@ -19,7 +19,6 @@ public class CompanyFacade extends ClientFacade {
     public static final CompanyFacade instance = new CompanyFacade();
     private final CompanyDAO companyDao;
     private final CouponDAO couponDAO;
-    LoginManager loginManager = LoginManager.instance;
 
     //Creating a private constructor
     private CompanyFacade() {
@@ -57,7 +56,7 @@ public class CompanyFacade extends ClientFacade {
         long hashedPasswordTCheck = password.hashCode();
 
         //Checking if email and password are matching to the specific company
-      return email.equals(companyEmail) && String.valueOf(hashedPasswordTCheck).equals(companyPassword);
+        return email.equals(companyEmail) && String.valueOf(hashedPasswordTCheck).equals(companyPassword);
     }
 
     //-------------------------------------Creating a new coupon--------------------------------------------------
@@ -158,27 +157,25 @@ public class CompanyFacade extends ClientFacade {
     Coupon coupon = couponDAO.read(couponId);
             //Checking if the coupon is not exists
             if (coupon == null) {
-        throw new EntityNotExistException(EntityType.COUPON);
+               throw new EntityNotExistException(EntityType.COUPON);
     }
             //Getting specific coupon
             return coupon;
     }
-
 
     //-------------------------------------Getting all coupons------------------------------------------------------
 
     public List<Coupon> getAllCoupons(final Long companyId) throws ApplicationException {
 
         List<Coupon> companyCoupons = new ArrayList<>();
-
             //Setting the specific company's coupons
             List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
+        //Checking if the coupons are not exists
+        if (coupons == null) {
+            throw new EntityNotExistException(EntityType.COUPON);
+        }
             //Adding the coupons to a list
             companyCoupons.addAll(coupons);
-            //Checking if the coupons are not exists
-            if (coupons == null) {
-                throw new EntityNotExistException(EntityType.COUPON);
-            }
 
         return companyCoupons;
     }

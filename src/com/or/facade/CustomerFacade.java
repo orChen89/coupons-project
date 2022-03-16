@@ -133,15 +133,16 @@ public class CustomerFacade extends ClientFacade {
 
         List<Coupon> coupons = new ArrayList<>();
 
+        //Checking if coupons are not exist
+        if(coupons == null) {
+            throw new EntityNotExistException(EntityType.COUPON);
+        }
+
         for (Long id : idList) {
             coupons.add(couponDAO.read(id));
         }
         customer.setCoupons(coupons);
 
-        //Checking if coupons are not exist
-        if(coupons == null) {
-            throw new EntityNotExistException(EntityType.COUPON);
-        }
         return coupons;
     }
 
@@ -165,7 +166,7 @@ public class CustomerFacade extends ClientFacade {
                 break;
             }
                 System.out.println("This customer doesn't holds coupons from this category!");
-            break;
+                break;
         }
         return couponsOfCustomerCategories;
     }
@@ -200,14 +201,15 @@ public class CustomerFacade extends ClientFacade {
         //Setting a specific customer
         Customer customer = customerDAO.read(customerId);
 
+        //Checking if the customer is not exists
+        if(customer == null) {
+            throw new EntityNotExistException(EntityType.CUSTOMER);
+        }
+
         List<Coupon> customerCoupons = getAllCoupons(customerId);
 
         customer.setCoupons(customerCoupons);
 
-        //Checking if the customer is not exists
-        if(customer == null) {
-              throw new EntityNotExistException(EntityType.CUSTOMER);
-        }
         return customer;
     }
 }

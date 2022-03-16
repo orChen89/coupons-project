@@ -129,14 +129,14 @@ public class AdminFacade extends ClientFacade {
         //Setting and adding all companies in a list of companies
         Set<Company> companies = new HashSet<>(companyDao.readAll());
 
-        for (Company company : companies) {
-            //Setting to each company its specific coupons
-            company.setCoupons(getCompany(company.getId()).getCoupons());
-        }
-
         //Checking if companies are not exist
         if(companies == null){
             throw new EntityNotExistException(EntityType.COMPANY);
+        }
+
+        for (Company company : companies) {
+            //Setting to each company its specific coupons
+            company.setCoupons(getCompany(company.getId()).getCoupons());
         }
 
         return companies;
@@ -224,14 +224,15 @@ public class AdminFacade extends ClientFacade {
 
         //Setting and adding all customers in a list of customers
         Set<Customer> customers = new HashSet<>(customerDAO.readAll());
-        for (Customer customer : customers) {
-            //Setting to every customer its coupons
-            customer.setCoupons(getCustomer(customer.getId()).getCoupons());
-        }
 
         //Checking if customers are not exist
         if(customers == null){
             throw new EntityNotExistException(EntityType.CUSTOMER);
+        }
+
+        for (Customer customer : customers) {
+            //Setting to every customer its coupons
+            customer.setCoupons(getCustomer(customer.getId()).getCoupons());
         }
 
         return customers;
@@ -244,14 +245,15 @@ public class AdminFacade extends ClientFacade {
         //Setting a specific customer
         Customer customer = customerDAO.read(customerId);
 
-        //Setting the specific customer's coupons in a list
-        List<Coupon> customerCoupons = CustomerFacade.instance.getAllCoupons(customerId);
-        customer.setCoupons(customerCoupons);
-
         //Checking if the customer is not exists
         if(customer == null){
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
+
+        //Setting the specific customer's coupons in a list
+        List<Coupon> customerCoupons = CustomerFacade.instance.getAllCoupons(customerId);
+        customer.setCoupons(customerCoupons);
+
         return customer;
     }
 }
