@@ -1,6 +1,9 @@
 package com.or;
 
 import com.or.constants.Constants;
+import com.or.dao.CompanyDAO;
+import com.or.dao.CouponDAO;
+import com.or.dao.CustomerDAO;
 import com.or.db.DataBaseInitializer;
 import com.or.enums.Categories;
 import com.or.enums.ClientType;
@@ -328,10 +331,10 @@ public class Tester {
         String loginSucceed = "Login completed successfully! ***Welcome ";
 
         //Getting the correct facade according to login
-
         if (clientFacade instanceof AdminFacade) {
             clientFacade = AdminFacade.instance;
-            System.out.println(loginSucceed + clientFacade.getClass().getCanonicalName() + "!***");
+            String facadeName = clientFacade.getClass().getCanonicalName();
+            System.out.println(loginSucceed + facadeName + adminNamePrompt());
             System.out.println();
             //Printing the admin operations
             adminOperationsMenu();
@@ -341,7 +344,9 @@ public class Tester {
 
         } else if (clientFacade instanceof CompanyFacade) {
             clientFacade = CompanyFacade.instance;
-            System.out.println(loginSucceed + clientFacade.getClass().getCanonicalName() + "!***");
+            String facadeName = clientFacade.getClass().getCanonicalName();
+            Company company = CompanyDAO.instance.readByEmail(loginEmail);
+            System.out.println(loginSucceed + facadeName + companyNamePrompt(company));
             System.out.println();
             //Printing the company operations
             companyOperationsMenu();
@@ -351,7 +356,9 @@ public class Tester {
 
         } else if (clientFacade instanceof CustomerFacade) {
             clientFacade = CustomerFacade.instance;
-            System.out.println(loginSucceed + clientFacade.getClass().getCanonicalName() + "!***");
+            String facadeName = clientFacade.getClass().getCanonicalName();
+            Customer customer = CustomerDAO.instance.readByEmail(loginEmail);
+            System.out.println(loginSucceed + facadeName + customerNamePrompt(customer));
             System.out.println();
             //Printing the customer operations
             customerOperationsMenu();
@@ -359,6 +366,22 @@ public class Tester {
             //Running customer's operations Test
             customerTest();
         }
+    }
+
+    private String adminNamePrompt() {
+
+       return "|" + Constants.ANSI_GREEN + "|Administrator|" + Constants.ANSI_DEFAULT_RESET + "!***";
+    }
+
+    private String companyNamePrompt(Company company) {
+
+        return "|" + Constants.ANSI_GREEN + company.getName() + Constants.ANSI_DEFAULT_RESET + "|" + "!***";
+    }
+
+    private String customerNamePrompt(Customer customer) {
+
+        return "|" + Constants.ANSI_GREEN + customer.getFirstName() + " " + customer.getLastName() +
+                Constants.ANSI_DEFAULT_RESET + "|" + "!***";
     }
 
     private void adminOperationsMenu() {
@@ -411,12 +434,13 @@ public class Tester {
 
     private void startMenu() {
 
-        System.out.println(Constants.ANSI_GREEN + "Please choose the desired activity you wish to perform: ");
-        System.out.println(
+        System.out.println("Please choose the desired activity you wish to perform: ");
+        System.out.println();
+        System.out.println(Constants.ANSI_GREEN +
                 "1 - Drop and create tables in Database" + "\n" +
                         "2 - Create by default all Entities & purchases (10 from each)" + "\n" +
-                        "3 - Perform login and system Tests" + "\n" +
-                        "4 - Enter to further Tests" + "\n" +
+                        "3 - Perform login & system tests" + "\n" +
+                        "4 - Enter to advanced tests" + "\n" +
                         "5 - Exit" + Constants.ANSI_DEFAULT_RESET);
     }
 
@@ -591,7 +615,7 @@ public class Tester {
 
         System.out.println();
         System.out.println(Constants.ANSI_RED_BACKGROUND + "Customer test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
-
+        System.out.println();
     }
 
     private void advancedTests() {

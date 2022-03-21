@@ -12,11 +12,6 @@ public class CouponUtil {
         coupon.setAmount(prevAmount - 1);
     }
 
-    //This method is setting a specific coupon amount
-    public static void setCouponAmount(final Coupon coupon, final int amount) {
-        coupon.setAmount(amount);
-    }
-
     //This method is checking if a coupon end date is expired
     public static boolean isCouponExpired(final Date date) {
         LocalDate today = LocalDate.now();

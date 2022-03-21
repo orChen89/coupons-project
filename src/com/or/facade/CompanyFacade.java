@@ -81,7 +81,7 @@ public class CompanyFacade extends ClientFacade {
 
         //Checking if the end date entered is valid according to today's Date
         if (CouponUtil.isCouponExpired(coupon.getEndDate())) {
-            throw new InvalidCouponDate();
+          //  throw new InvalidCouponDate();
         }
 
         //Creating a coupon on our database

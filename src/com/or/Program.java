@@ -4,7 +4,7 @@ public class Program {
 
     public static void main(String[] args) {
 
-        //Creating tester object
+        //Creating the tester object
         Tester test = new Tester();
 
         //Running the system with catching all exceptions
@@ -15,3 +15,4 @@ public class Program {
         }
     }
 }
+

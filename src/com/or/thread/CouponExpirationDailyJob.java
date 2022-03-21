@@ -25,16 +25,20 @@ public class CouponExpirationDailyJob implements Runnable {
                 for (Coupon coupon : couponDAO.readAll()) {
                     //Checking for each coupon in the database if expired
                     if (CouponUtil.isCouponExpired(coupon.getEndDate())) {
+
                         //Setting a coupon Id in a variable
                         Long couponId = coupon.getId();
+
                         //Setting a customer Id in a variable
                         Long customerId = couponDAO.readCouponPurchaseByCouponId(coupon.getId());
+
                         //Deleting the expired coupon from the purchase table in SQL
                         couponDAO.deleteCouponPurchase(customerId, couponId);
+
                         //Deleting the expired coupon from the coupons table in SQL
                         couponDAO.delete(couponId);
                         System.out.println("The coupon: " + coupon.getTitle() +
-                                " has been deleted due to its expiration date" + coupon.getEndDate());
+                                " has been deleted due to its expiration date: " + coupon.getEndDate());
                     }
                 }
             } catch (CrudException e) {

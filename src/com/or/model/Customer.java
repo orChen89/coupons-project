@@ -17,7 +17,6 @@ public class Customer {
     private String password;
     private List<Coupon> coupons;
 
-
     public Customer(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
