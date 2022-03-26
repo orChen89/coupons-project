@@ -43,14 +43,11 @@ public class ConnectionPool {
         }
     }
 
-    public void closeAllConnections() throws InterruptedException {
-        synchronized (connections) {
-            while (connections.size() < Constants.NUMBER_OF_CONNECTIONS) {
-                connections.wait();
-            }
+    //removing all connections in the stack
+    public void closeAllConnections() {
             connections.removeAllElements();
         }
-    }
+
 
     //Getting a specific connection from the stack for any desirable operation
     public Connection getConnection() throws InterruptedException {

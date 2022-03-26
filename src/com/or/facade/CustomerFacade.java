@@ -84,7 +84,7 @@ public class CustomerFacade extends ClientFacade {
             throw new EntityNotExistException(EntityType.CUSTOMER);
         }
 
-        //Checking if the coupon list is not empty
+        //Checking if the customer's coupon list is not empty
         if (currentCustomerCoupons != null) {
             for (Coupon coupon : currentCustomerCoupons) {
                 //Checking for each coupon in the list if already exists

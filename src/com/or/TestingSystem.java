@@ -2,8 +2,8 @@ package com.or;
 
 import com.or.constants.Constants;
 import com.or.dao.CompanyDAO;
-import com.or.dao.CouponDAO;
 import com.or.dao.CustomerDAO;
+import com.or.db.ConnectionPool;
 import com.or.db.DataBaseInitializer;
 import com.or.enums.Categories;
 import com.or.enums.ClientType;
@@ -15,6 +15,7 @@ import com.or.model.Coupon;
 import com.or.model.Customer;
 import com.or.thread.CouponExpirationDailyJob;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -23,13 +24,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
-public class Tester {
+public class TestingSystem {
 
     //Creating a state of this class scanner & and login manager instance
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final LoginManager loggingManager = LoginManager.instance;
 
-    public void testAll() throws ApplicationException {
+    public void testAll() throws ApplicationException, SQLException {
 
         boolean stop = true;
 
@@ -42,7 +43,6 @@ public class Tester {
         while (stop) {
             startMenu();
             int choice = SCANNER.nextInt();
-
             switch (choice) {
 
                 case 1:
@@ -66,15 +66,18 @@ public class Tester {
                     break;
 
                 case 5:
-                    //Killing our thread and closing the program
-                    dailyJobThread.stop();
-                    stop = false;
-                    System.out.println(Constants.ANSI_YELLOW_BACKGROUND + Constants.ANSI_BLACK + "GOODBYE!" +
-                                       Constants.ANSI_DEFAULT_RESET);
-                    break;
+                    //Closing all connections
+                    ConnectionPool.getInstance().closeAllConnections();
+                        //Killing our thread and closing the program
+                        dailyJobThread.stop();
+                        stop = false;
+                        System.out.println(Constants.ANSI_YELLOW_BACKGROUND + Constants.ANSI_BLACK + "GOODBYE!" +
+                                Constants.ANSI_DEFAULT_RESET);
+                        break;
+                    }
+                }
             }
-        }
-    }
+
 
     private void creatingDefaultEntities() throws ApplicationException {
 
@@ -145,7 +148,7 @@ public class Tester {
         couponsList.add(new Coupon(2L, Categories.FASHION, "Skinny Jeans", "PANTS", Date.valueOf("2022-02-28"),
                 Date.valueOf("2022-05-25"), 20, 100.0, "jdbc:mysql://localhost:3306/coupons_project/3"));
         couponsList.add(new Coupon(3L, Categories.ELECTRICITY, "Tanoor", "OVEN", Date.valueOf("2022-02-28"),
-                Date.valueOf("2022-03-25"), 6, 1500.50, "jdbc:mysql://localhost:3306/coupons_project/4"));
+                Date.valueOf("2022-03-30"), 6, 1500.50, "jdbc:mysql://localhost:3306/coupons_project/4"));
         couponsList.add(new Coupon(4L, Categories.VACATION, "Kal", "ZANZIBAR", Date.valueOf("2022-02-28"),
                 Date.valueOf("2022-08-30"), 1, 7000.80, "jdbc:mysql://localhost:3306/coupons_project/5"));
         couponsList.add(new Coupon(4L, Categories.VACATION, "Barur", "Ski", Date.valueOf("2022-02-15"),
@@ -294,7 +297,7 @@ public class Tester {
         System.out.println("Current amount of coupon after purchasing: "
                 + companyFacade.getCoupon(10L).getTitle() + " is: "
                 + companyFacade.getCoupon(10L).getAmount());
-
+        System.out.println();
     }
 
     private void loginTest() throws ApplicationException {
@@ -433,15 +436,14 @@ public class Tester {
     }
 
     private void startMenu() {
-
-        System.out.println("Please choose the desired activity you wish to perform: ");
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Please choose the desired activity you wish to perform: " + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
-        System.out.println(Constants.ANSI_GREEN +
+        System.out.println(
                 "1 - Drop and create tables in Database" + "\n" +
                         "2 - Create by default all Entities & purchases (10 from each)" + "\n" +
                         "3 - Perform login & system tests" + "\n" +
                         "4 - Enter to advanced tests" + "\n" +
-                        "5 - Exit" + Constants.ANSI_DEFAULT_RESET);
+                        "5 - Exit");
     }
 
     private void openingPrompt() {
@@ -617,6 +619,7 @@ public class Tester {
         System.out.println(Constants.ANSI_RED_BACKGROUND + "Customer test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
     }
+
 
     private void advancedTests() {
 

@@ -14,7 +14,7 @@ public class Constants {
     //Placing SQL password into an environment variable
     public static final String SQL_PASS = System.getenv("SQL_PASSWORD");
     //Setting the number of connections in the stack
-    public static final int NUMBER_OF_CONNECTIONS = 20;
+    public static final int NUMBER_OF_CONNECTIONS = 15;
     //Setting the hours of a day
     public static final int NOON = 12;
     public static final int EVENING = 18;

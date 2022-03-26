@@ -67,6 +67,8 @@ public class LoginManager {
             authenticatedUsers.add(email);
             return facadeType;
         }
+        facadeType = null;
+        System.out.println(facadeType);
         throw new LoginMatchingEntityException(email, clientType);
     }
 }

@@ -19,7 +19,9 @@ public class CouponExpirationDailyJob implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("Thread: " + dailyJob.getName() + " started to run");
+        System.out.println();
+        System.out.println(Constants.ANSI_ORANGE + "Thread: " + dailyJob.getName() + " started to run" + Constants.ANSI_DEFAULT_RESET);
+        System.out.println();
         while (!dailyJob.rubJob()) {
             try {
                 for (Coupon coupon : couponDAO.readAll()) {
@@ -45,7 +47,8 @@ public class CouponExpirationDailyJob implements Runnable {
                 System.err.println(e);
             }
             try {
-                System.out.println(Thread.currentThread() + " went to sleep for 24 hours");
+                System.out.println(Constants.ANSI_ORANGE + Thread.currentThread() + " went to sleep for 24 hours" +
+                        Constants.ANSI_DEFAULT_RESET);
                 System.out.println();
                 //Setting the sleep period to 24 hours
                 Thread.sleep(Constants.DAILY_JOB_SLEEP_PERIOD);

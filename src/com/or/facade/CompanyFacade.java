@@ -81,7 +81,7 @@ public class CompanyFacade extends ClientFacade {
 
         //Checking if the end date entered is valid according to today's Date
         if (CouponUtil.isCouponExpired(coupon.getEndDate())) {
-          //  throw new InvalidCouponDate();
+            throw new InvalidCouponDate();
         }
 
         //Creating a coupon on our database
@@ -133,7 +133,7 @@ public class CompanyFacade extends ClientFacade {
             throw new EntityNotExistException(EntityType.COUPON);
         }
 
-        //Checking if there is a purchase including the current coupon
+        //Checking if there isn't a purchase including the current coupon
         if (couponDAO.readCouponPurchaseByCouponId(couponId) == null) {
             //Deleting the coupon on our database
             System.out.println("The selected coupon: " + couponDAO.read(couponId).getTitle() + " has been deleted!");
