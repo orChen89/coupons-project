@@ -68,15 +68,15 @@ public class TestingSystem {
                 case 5:
                     //Closing all connections
                     ConnectionPool.getInstance().closeAllConnections();
-                        //Killing our thread and closing the program
-                        dailyJobThread.stop();
-                        stop = false;
-                        System.out.println(Constants.ANSI_YELLOW_BACKGROUND + Constants.ANSI_BLACK + "GOODBYE!" +
-                                Constants.ANSI_DEFAULT_RESET);
-                        break;
-                    }
-                }
+                    //Killing our thread and closing the program
+                    dailyJobThread.stop();
+                    stop = false;
+                    System.out.println(Constants.ANSI_YELLOW_BACKGROUND + Constants.ANSI_BLACK + "GOODBYE!" +
+                            Constants.ANSI_DEFAULT_RESET);
+                    break;
             }
+        }
+    }
 
 
     private void creatingDefaultEntities() throws ApplicationException {
@@ -90,13 +90,13 @@ public class TestingSystem {
         List<Company> companiesList = new ArrayList<>();
 
         companiesList.add(new Company("Orburger", "com1@gmail.com", "Com1"));
-        companiesList.add(new Company("Kisaot", "com2@gmail.com", "Com2"));
-        companiesList.add(new Company("Michnasaim", "com3@gmail.com", "Com3"));
+        companiesList.add(new Company("Michnasaim", "com2@gmail.com", "Com2"));
+        companiesList.add(new Company("Hashmal", "com3@gmail.com", "Com3"));
         companiesList.add(new Company("Hul", "com4@gmail.com", "Com4"));
         companiesList.add(new Company("Shualim", "com5@gmail.com", "Com5"));
         companiesList.add(new Company("Tachles", "com6@gmail.com", "Com6"));
         companiesList.add(new Company("Dilim", "com7@gmail.com", "Com7"));
-        companiesList.add(new Company("Hashmal", "com8@gmail.com", "Com8"));
+        companiesList.add(new Company("Yeshivot", "com8@gmail.com", "Com8"));
         companiesList.add(new Company("Teruf", "com9@gmail.com", "Com9"));
         companiesList.add(new Company("Weepo", "com10@gmail.com", "Com10"));
 
@@ -142,13 +142,13 @@ public class TestingSystem {
 
         List<Coupon> couponsList = new ArrayList<>();
         couponsList.add(new Coupon(1L, Categories.FOOD, "Lamburger", "BURGER", Date.valueOf("2022-02-28"),
-                Date.valueOf("2022-04-30"), 3, 10.0, "jdbc:mysql://localhost:3306/coupons_project/1"));
-        couponsList.add(new Coupon(1L, Categories.FURNITURE, "Kiseh", "CHAIR", Date.valueOf("2022-02-28"),
-                Date.valueOf("2022-05-30"), 5, 20.0, "jdbc:mysql://localhost:3306/coupons_project/2"));
+                Date.valueOf("2022-04-30"), 3, 59.0, "jdbc:mysql://localhost:3306/coupons_project/1"));
+        couponsList.add(new Coupon(1L, Categories.FOOD, "Cheeseburger", "BURGER", Date.valueOf("2022-02-28"),
+                Date.valueOf("2022-04-27"), 5, 45.0, "jdbc:mysql://localhost:3306/coupons_project/2"));
         couponsList.add(new Coupon(2L, Categories.FASHION, "Skinny Jeans", "PANTS", Date.valueOf("2022-02-28"),
                 Date.valueOf("2022-05-25"), 20, 100.0, "jdbc:mysql://localhost:3306/coupons_project/3"));
         couponsList.add(new Coupon(3L, Categories.ELECTRICITY, "Tanoor", "OVEN", Date.valueOf("2022-02-28"),
-                Date.valueOf("2022-03-30"), 6, 1500.50, "jdbc:mysql://localhost:3306/coupons_project/4"));
+                Date.valueOf("2022-07-30"), 6, 1500.50, "jdbc:mysql://localhost:3306/coupons_project/4"));
         couponsList.add(new Coupon(4L, Categories.VACATION, "Kal", "ZANZIBAR", Date.valueOf("2022-02-28"),
                 Date.valueOf("2022-08-30"), 1, 7000.80, "jdbc:mysql://localhost:3306/coupons_project/5"));
         couponsList.add(new Coupon(4L, Categories.VACATION, "Barur", "Ski", Date.valueOf("2022-02-15"),
@@ -174,7 +174,7 @@ public class TestingSystem {
         });
         System.out.println();
 
-        //------------------------Creating default purchasing in our database-----------------------------------
+        //------------------------Creating default purchases in our database-----------------------------------
 
         System.out.println("Purchases creation by default --> ");
         System.out.println();
@@ -304,7 +304,7 @@ public class TestingSystem {
 
         System.out.println();
         System.out.println("Please perform login:");
-        System.out.print("Please enter your clientType: " + "administrator/company/customer: ");
+        System.out.print("Please enter your clientType: " + "admin/company/customer: ");
         String clientType = SCANNER.next().toUpperCase();
         System.out.print("Please enter your Email: ");
         String loginEmail = SCANNER.next();
@@ -317,7 +317,7 @@ public class TestingSystem {
         switch (clientType) {
 
             case "ADMINISTRATOR":
-                chosenClientType = ClientType.ADMINISTRATOR;
+                chosenClientType = ClientType.ADMIN;
 
                 break;
             case "COMPANY":
@@ -373,25 +373,25 @@ public class TestingSystem {
 
     private String adminNamePrompt() {
 
-       return "|" + Constants.ANSI_GREEN + "|Administrator|" + Constants.ANSI_DEFAULT_RESET + "!***";
+        return "|" + Constants.ANSI_GREEN + "|| Administrator ||" + Constants.ANSI_DEFAULT_RESET + "***";
     }
 
     private String companyNamePrompt(Company company) {
 
-        return "|" + Constants.ANSI_GREEN + company.getName() + Constants.ANSI_DEFAULT_RESET + "|" + "!***";
+        return "||" + Constants.ANSI_GREEN + company.getName() + Constants.ANSI_DEFAULT_RESET + "||" + "***";
     }
 
     private String customerNamePrompt(Customer customer) {
 
-        return "|" + Constants.ANSI_GREEN + customer.getFirstName() + " " + customer.getLastName() +
-                Constants.ANSI_DEFAULT_RESET + "|" + "!***";
+        return "||" + Constants.ANSI_GREEN + customer.getFirstName() + " " + customer.getLastName() +
+                Constants.ANSI_DEFAULT_RESET + "||" + "***";
     }
 
     private void adminOperationsMenu() {
 
-        System.out.println("These are the Admin operations: ");
+        System.out.println("Admin's operations: ");
         System.out.println(
-                "Adding a new company " + "\n" +
+                        "Adding a new company " + "\n" +
                         "Updating an existing company " + "\n" +
                         "Deleting an existing company " + "\n" +
                         "Getting all existing companies " + "\n" +
@@ -406,9 +406,9 @@ public class TestingSystem {
 
     private void companyOperationsMenu() {
 
-        System.out.println("These are the Company operations: ");
+        System.out.println("Company's operations: ");
         System.out.println(
-                "Adding a new coupon " + "\n" +
+                        "Adding a new coupon " + "\n" +
                         "Updating an existing coupon " + "\n" +
                         "Deleting an existing coupon " + "\n" +
                         "Getting all existing coupons of company " + "\n" +
@@ -420,28 +420,24 @@ public class TestingSystem {
 
     private void customerOperationsMenu() {
 
-        System.out.println("These are the Customer operations: ");
+        System.out.println("Customer's operations: ");
         System.out.println(
-                "Add a new company " + "\n" +
-                        "Updating an existing company " + "\n" +
-                        "Deleting an existing company " + "\n" +
-                        "Getting all existing companies " + "\n" +
-                        "Getting a specific company (Company ID) " + "\n" +
-                        "Adding a new customer " + "\n" +
-                        "Updating an existing customer " + "\n" +
-                        "Deleting an existing customer " + "\n" +
-                        "Getting all existing customers" + "\n" +
-                        "Getting a specific customer (Customer ID)");
+                        "Purchase a coupon " + "\n" +
+                        "Getting all existing coupons of company  " + "\n" +
+                        "Getting all coupons (Category type) " + "\n" +
+                        "Getting all coupons (Max price limit) " + "\n" +
+                        "Getting a specific customer");
         System.out.println();
     }
 
     private void startMenu() {
-        System.out.println(Constants.ANSI_RED_BACKGROUND + "Please choose the desired activity you wish to perform: " + Constants.ANSI_DEFAULT_RESET);
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Please choose the desired activity you wish to perform: " +
+                           Constants.ANSI_DEFAULT_RESET);
         System.out.println();
         System.out.println(
-                "1 - Drop and create tables in Database" + "\n" +
+                        "1 - Drop and create tables in Database" + "\n" +
                         "2 - Create by default all Entities & purchases (10 from each)" + "\n" +
-                        "3 - Perform login & system tests" + "\n" +
+                        "3 - Perform login & enter to system tests" + "\n" +
                         "4 - Enter to advanced tests" + "\n" +
                         "5 - Exit");
     }
@@ -455,7 +451,7 @@ public class TestingSystem {
         //Setting a local time variable to current time
         LocalTime currentTime = LocalTime.now();
         //Setting a variable to specific hour
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        final int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         String dayPeriod = "";
 
         if (hour < Constants.NOON) {
@@ -473,8 +469,9 @@ public class TestingSystem {
                 + currentTime.format(DateTimeFormatter.ofPattern("HH:mm")) + ")------------------------"
                 + Constants.ANSI_DEFAULT_RESET);
         System.out.println();
-        System.out.println(Constants.ANSI_ORANGE + "Good " + dayPeriod + "!" + " Welcome to the 1st phase of Coupons project!" +
-                Constants.ANSI_DEFAULT_RESET);
+        System.out.println(Constants.ANSI_ORANGE + "Good " + dayPeriod + "!" +
+                           " Welcome to the 1st phase of Coupons project!" +
+                           Constants.ANSI_DEFAULT_RESET);
         System.out.println();
     }
 
@@ -532,11 +529,12 @@ public class TestingSystem {
         System.out.println();
 
         System.out.println("Test 8 - Getting an existing customer including coupons -->");
-        //If test valid - In that case the customer won't have any coupons due to company deletion
+        //If test valid - In that case we will receive customer with no coupons due to company deletion on test 2
         System.out.println(clientFacade.getCustomer(3L));
 
         System.out.println();
-        System.out.println(Constants.ANSI_RED_BACKGROUND + "Admin test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Admin test passed successfully!" +
+                           Constants.ANSI_DEFAULT_RESET);
         System.out.println();
 
     }
@@ -572,13 +570,12 @@ public class TestingSystem {
         System.out.println("Test 4 - Getting all coupons for specific company from specific category -->");
         //If test valid - We will receive the coupon according to category
         System.out.println(clientFacade.getCouponsByCategory(4L, Categories.VACATION));
-        //If test valid - We will receive a comment this category is not relevant to company's coupons
+        //If test valid - We will receive a comment - this category is not relevant to company's coupons
         System.out.println(clientFacade.getCouponsByCategory(4L, Categories.FOOD));
         System.out.println();
 
         System.out.println("Test 5 - Getting all coupons for specific company according to specific price -->");
         //If test valid - We will receive the relevant coupons that are less than the inserted price
-        System.out.println(clientFacade.getCouponsByMaxPrice(1L, 8.0));
         System.out.println(clientFacade.getCouponsByMaxPrice(1L, 50.0));
         System.out.println();
 
@@ -586,7 +583,8 @@ public class TestingSystem {
         System.out.println(clientFacade.getCompany(8L));
 
         System.out.println();
-        System.out.println(Constants.ANSI_RED_BACKGROUND + "Company test passed successfully!" + Constants.ANSI_DEFAULT_RESET);
+        System.out.println(Constants.ANSI_RED_BACKGROUND + "Company test passed successfully!" +
+                           Constants.ANSI_DEFAULT_RESET);
         System.out.println();
 
     }
@@ -649,7 +647,7 @@ public class TestingSystem {
 
         System.out.println("Testing updating an existing company's name -->");
         try {
-            //If test valid - we will receive an exception - Company already exist
+            //If test valid - we will receive an exception - Company's name is already exists
             adminFacade.updateCompany(new Company(3L, "Wallak", "com3@gmail.com", "Com3"));
 
         } catch (ApplicationException e) {
@@ -660,8 +658,8 @@ public class TestingSystem {
         System.out.println("Testing creating a new customer with same email of an existing customer -->");
         try {
             //If test valid - we will receive an exception - Customer already exist
-            adminFacade.createCustomer(new Customer("Or", "Or", "user3@gmail.com", "Com4"));
-
+            adminFacade.createCustomer(new Customer("Or", "Or", "user3@gmail.com",
+                                      "Com4"));
         } catch (ApplicationException e) {
             System.out.println(e);
         }
@@ -703,7 +701,7 @@ public class TestingSystem {
         try {
             //If test valid - we will receive an exception - Date is invalid
             companyFacade.createCoupon(new Coupon(10L, Categories.FOOD, "Toast-Naknik",
-                    "Taim", Date.valueOf("2022-02-28"), Date.valueOf("2022-01-30"),
+                    "Taim", Date.valueOf("2022-01-28"), Date.valueOf("2022-02-30"),
                     2, 32.5, "jdbc:mysql://localhost:3306/coupons_project"));
         } catch (ApplicationException e) {
             System.out.println(e);

@@ -9,6 +9,7 @@ import com.or.model.Company;
 import com.or.model.Coupon;
 import com.or.util.CouponUtil;
 import com.or.util.InputUserValidation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,7 +63,7 @@ public class CompanyFacade extends ClientFacade {
 
     public Long createCoupon(final Coupon coupon) throws ApplicationException {
 
-        //Checking if the specific coupon is already exist
+        //Checking if the specific coupon is already exist to current company
         for (Coupon c : couponDAO.readAll()) {
             if (c.getTitle().equals(coupon.getTitle()) && Objects.equals(c.getCompanyID(), coupon.getCompanyID())) {
                 throw new EntityExistException(EntityType.COUPON);
@@ -209,7 +210,8 @@ public class CompanyFacade extends ClientFacade {
 
         List<Coupon> couponsByMax = new ArrayList<>();
 
-        List<Coupon> coupons = couponDAO.readCouponsByCompanyId(companyId);
+        List<Coupon> coupons = getAllCoupons(companyId);
+
         //Checking if the coupons are not exists
         if (coupons == null) {
             throw new EntityNotExistException(EntityType.COUPON);

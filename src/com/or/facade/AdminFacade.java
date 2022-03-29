@@ -172,7 +172,7 @@ public class AdminFacade extends ClientFacade {
             throw new UserValidationException();
         }
 
-        //Checking if customer is already exist
+        //Checking if customer is already exist according to email
         if (customerDAO.isExistsByEmail(customer.getEmail())) {
             throw new EntityExistException(EntityType.CUSTOMER);
         }

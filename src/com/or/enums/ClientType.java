@@ -1,7 +1,7 @@
 package com.or.enums;
 
 public enum ClientType {
-    ADMINISTRATOR,
+    ADMIN,
     COMPANY,
     CUSTOMER
 }

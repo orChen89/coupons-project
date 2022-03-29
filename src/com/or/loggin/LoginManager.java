@@ -8,15 +8,12 @@ import com.or.facade.ClientFacade;
 import com.or.facade.CompanyFacade;
 import com.or.facade.CustomerFacade;
 import lombok.Data;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 public class LoginManager {
 
     public static final LoginManager instance = new LoginManager();
 
-    private final Set<String> authenticatedUsers = new HashSet<>();
     private final AdminFacade adminFacade;
     private final CompanyFacade companyFacade;
     private final CustomerFacade customerFacade;
@@ -39,7 +36,7 @@ public class LoginManager {
         //Verifying which facade to return according to the specific credentials
         switch (clientType) {
 
-            case ADMINISTRATOR:
+            case ADMIN:
 
                 facadeType = this.adminFacade;
                 break;
@@ -63,8 +60,6 @@ public class LoginManager {
         isAuthenticated = facadeType.login(email, password);
 
         if (isAuthenticated) {
-            //Adding the email address to the set list
-            authenticatedUsers.add(email);
             return facadeType;
         }
         facadeType = null;

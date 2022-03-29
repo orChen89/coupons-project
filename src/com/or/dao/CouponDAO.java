@@ -294,71 +294,6 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
         }
     }
 
-    //-----------------------------Getting an existing coupon by customer's Id(read)---------------------------------
-
-    public Coupon readCouponPurchaseByCustomerId(final Long customerId) throws CrudException {
-        Connection connection = null;
-        try {
-            //Creating a SQL query
-            String sqlStatement = "SELECT * FROM coupons, customer_vs_coupon WHERE coupon_id = " +
-                    "customer_vs_coupon.coupon_id " +
-                    "AND customer_vs_coupon.customer_id = ?";
-            //Establishing a connection from the connection pool - Asking for one of the connections(pop)
-            connection = connectionPool.getConnection();
-            //Setting our connection with our SQL query and merging them together
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            //Placing our relevant data/properties instead the question marks in the SQL statement above
-            preparedStatement.setLong(1, customerId);
-            //Executing our query on SQL - Retrieving data from our database and storing it on a ResultSet variable
-            ResultSet result = preparedStatement.executeQuery();
-            //Checking if our variable is not empty/null
-            if (!result.next()) {
-                return null;
-            }
-            //Getting our result from our database translated to our Coupon object
-            return ObjectExtractionUtil.resultToCoupon(result);
-        } catch (SQLException | InterruptedException e) {
-            System.err.println(e);
-            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
-        } finally {
-            //Returning the chosen connection to the connections stack
-            connectionPool.returnConnection(connection);
-        }
-    }
-
-    //-----------------------------Getting an existing coupons by customer's Id(read)--------------------------------
-
-    public List<Coupon> readCouponsPurchaseByCustomerId(final Long customerId) throws CrudException {
-        Connection connection = null;
-        try {
-            //Creating a SQL query
-            String sqlStatement = "SELECT coupon_id FROM customer_vs_coupon WHERE customer_id = ?";
-            //Establishing a connection from the connection pool - Asking for one of the connections(pop)
-            connection = connectionPool.getConnection();
-            //Setting our connection with our SQL query and merging them together
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            //Placing our relevant data/properties instead the question marks in the SQL statement above
-            preparedStatement.setLong(1, customerId);
-            //Executing our query on SQL - Retrieving data from our database and storing it on a ResultSet variable
-            ResultSet result = preparedStatement.executeQuery();
-
-            List<Coupon> couponsByCustomerId = new ArrayList<>();
-            //Checking if our variable is not empty/null
-            while (result.next()) {
-                //Adding to our coupons list the result of coupon
-                couponsByCustomerId.add(ObjectExtractionUtil.resultToCoupon(result));
-            }
-            //Getting our result from our database translated to our Coupon object
-            return couponsByCustomerId;
-        } catch (SQLException | InterruptedException e) {
-            System.err.println(e);
-            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
-        } finally {
-            //Returning the chosen connection to the connections stack
-            connectionPool.returnConnection(connection);
-        }
-    }
-
     //--------------------------Getting list of coupons Id's by customer's Id (read)-------------------------------
 
     public List<Long> readCouponsByCustomerId(final long customerId) throws CrudException {
@@ -412,36 +347,6 @@ public class CouponDAO implements CrudDAO<Long, Coupon> {
                 coupons.add(ObjectExtractionUtil.resultToCoupon(result));
             }
             return coupons;
-        } catch (SQLException | InterruptedException e) {
-            System.err.println(e);
-            throw new CrudException(EntityType.COUPON, CrudOperation.READ);
-        } finally {
-            //Returning the chosen connection to the connections stack
-            connectionPool.returnConnection(connection);
-        }
-    }
-
-    //--------------------------Getting a specific company coupon by company's Id(read)-----------------------------
-
-    public Coupon readCouponByCompanyId(final long companyId) throws CrudException {
-        Connection connection = null;
-        try {
-            //Creating a SQL query
-            String sqlStatement = "SELECT * FROM coupons WHERE company_id = ?";
-            //Establishing a connection from the connection pool - Asking for one of the connections(pop)
-            connection = connectionPool.getConnection();
-            //Setting our connection with our SQL query and merging them together
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS);
-            //Placing our relevant data/properties instead the question marks in the SQL statement above
-            preparedStatement.setLong(1, companyId);
-            //Executing our query on SQL - Retrieving data from our database and storing it on a ResultSet variable
-            ResultSet result = preparedStatement.executeQuery();
-            //Checking if our variable is not empty/null
-            if (!result.next()) {
-                return null;
-            }
-            //Getting our result from our database translated to our Coupon object
-            return ObjectExtractionUtil.resultToCoupon(result);
         } catch (SQLException | InterruptedException e) {
             System.err.println(e);
             throw new CrudException(EntityType.COUPON, CrudOperation.READ);

@@ -2,7 +2,8 @@ package com.or.thread;
 
 import com.or.constants.Constants;
 import com.or.dao.CouponDAO;
-import com.or.errors.CrudException;
+import com.or.errors.ApplicationException;
+import com.or.facade.CompanyFacade;
 import com.or.model.Coupon;
 import com.or.util.CouponUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CouponExpirationDailyJob implements Runnable {
 
-    private static final CouponDAO couponDAO = CouponDAO.instance;
+    private static final CompanyFacade companyFacade = CompanyFacade.instance;
+    private static final CouponDAO couponDao = CouponDAO.instance;
     private final DailyJob dailyJob = new DailyJob();
 
 
@@ -24,26 +26,18 @@ public class CouponExpirationDailyJob implements Runnable {
         System.out.println();
         while (!dailyJob.rubJob()) {
             try {
-                for (Coupon coupon : couponDAO.readAll()) {
+                for (Coupon coupon : couponDao.readAll()) {
                     //Checking for each coupon in the database if expired
                     if (CouponUtil.isCouponExpired(coupon.getEndDate())) {
 
-                        //Setting a coupon Id in a variable
-                        Long couponId = coupon.getId();
+                        //Deleting the expired coupon from the coupons table in SQL & from purchase table
+                        companyFacade.deleteCoupon(coupon.getId());
 
-                        //Setting a customer Id in a variable
-                        Long customerId = couponDAO.readCouponPurchaseByCouponId(coupon.getId());
-
-                        //Deleting the expired coupon from the purchase table in SQL
-                        couponDAO.deleteCouponPurchase(customerId, couponId);
-
-                        //Deleting the expired coupon from the coupons table in SQL
-                        couponDAO.delete(couponId);
                         System.out.println("The coupon: " + coupon.getTitle() +
                                 " has been deleted due to its expiration date: " + coupon.getEndDate());
                     }
                 }
-            } catch (CrudException e) {
+            } catch (ApplicationException e) {
                 System.err.println(e);
             }
             try {
